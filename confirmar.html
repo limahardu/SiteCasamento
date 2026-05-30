@@ -34,7 +34,7 @@ h1 span{color:var(--blue);font-style:italic}
 .pixbox code{flex:1;font-size:11px;word-break:break-all;text-align:left}
 .copy-btn{border:0;background:var(--blue);color:#fff;border-radius:8px;padding:7px 13px;cursor:pointer;font-size:12px;font-weight:700;white-space:nowrap;font-family:inherit}
 .note{font-size:12px;color:var(--soft);line-height:1.5;margin-top:10px}
-footer{margin-top:28px;font-size:12px;color:var(--soft);text-align:center}
+footer{margin-top:28px;font-size:12px;color:var(--soft);text-align:center}.thanks-card{display:none;text-align:center;padding:8px 0}.thanks-card .big{font-size:64px;margin-bottom:12px}.thanks-card h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;margin-bottom:10px}.thanks-card p{color:var(--soft);line-height:1.6;font-size:15px}
 footer a{color:var(--blue);text-decoration:none}
 </style>
 </head>
@@ -51,6 +51,11 @@ footer a{color:var(--blue);text-decoration:none}
     <div class="preview" id="preview"></div>
     <button class="btn" type="submit">Confirmar Presença & Ver QR do Almoço</button>
   </form>
+  <div class="thanks-card" id="thanksCard">
+    <div class="big">🤍</div>
+    <h2>Obrigada pela <span style="color:var(--blue);font-style:italic">presença</span>!</h2>
+    <p>Sua confirmação foi recebida.<br>Estamos muito felizes em ter você neste momento tão especial.<br><br>Nos vemos em breve! 🥂</p>
+  </div>
 </div>
 <footer>
   <a href="https://leoethay.vercel.app/">← Ver lista de presentes</a>
@@ -81,7 +86,7 @@ function _crc16(s){let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<
 function _emv(id,v){return id+String(v.length).padStart(2,'0')+v}
 function gerarPix(key,nome,cidade,valor){const m=_emv('00','br.gov.bcb.pix')+_emv('01',key);const p=_emv('00','01')+_emv('01','12')+_emv('26',m)+_emv('52','0000')+_emv('53','986')+_emv('54',valor.toFixed(2))+_emv('58','BR')+_emv('59',nome.substring(0,25))+_emv('60',cidade.substring(0,15))+_emv('62',_emv('05','***'))+'6304';return p+_crc16(p)}
 
-function closeModal(){document.getElementById('modal').classList.remove('active');document.body.style.overflow=''}
+function closeModal(){document.getElementById('modal').classList.remove('active');document.body.style.overflow='';document.getElementById('rsvpForm').style.display='none';document.getElementById('thanksCard').style.display='block'}
 function copyPix(){navigator.clipboard.writeText(document.getElementById('pixStr').textContent).then(()=>alert('Código PIX copiado!'))}
 
 document.getElementById('rPessoas').addEventListener('input',function(){
